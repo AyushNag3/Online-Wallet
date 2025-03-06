@@ -3,8 +3,8 @@
 import { ReactNode } from "react";
 
 interface ButtonProps {
-  children: ReactNode;
-  onClick: () => void;
+  children: ReactNode; // children: This is a special prop in React that represents the content that is passed between the opening and closing tags of a component
+  onClick: () => void; // In this type def, its a function that does not return anything
 }
 
 export const Button = ({ onClick, children }: ButtonProps) => {
