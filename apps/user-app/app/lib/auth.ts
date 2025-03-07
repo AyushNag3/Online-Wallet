@@ -1,5 +1,6 @@
 import db from "@repo/db/client";
 import CredentialsProvider from "next-auth/providers/credentials"
+import GitHubProvider from "next-auth/providers/github";
 import bcrypt from "bcrypt";
 
 export const authOptions = {
@@ -51,15 +52,34 @@ export const authOptions = {
 
             return null
           },
-        })
+        }),
+        GitHubProvider({
+            clientId: process.env.Github_Client_ID || "",
+            clientSecret: process.env.Github_Client_Secret || ""
+          })
     ],
     secret: process.env.JWT_SECRET || "secret",
-    callbacks: {
+    callbacks: { // callbacks provides us to add extra config.
         // TODO: can u fix the type here? Using any is bad
-        async session({ token, session }: any) {
-            session.user.id = token.sub
+        async jwt({token, account, profile} : any) {
+            if (account) {
+            token.accessToken = account.access_token
+            token.id = profile.id
+            }
+            return token
+        },
+
+        async session({ token, session, user }:any) { // By default, only a subset of the token is returned for increased security. 
+            session.accessToken = token.accessToken // Since, earlier without the callback, id was not returned, hence this has been done
+            session.user.id = token.id
             return session
-        }
+        },
+        // async signIn({user} : {user :any}) {    This callback makes user that user with 12345@gmail.com is blocked
+        //    if (user.email == "12345@gmail.com") {
+        //     return false 
+        //    }
+        //    return true
+        //   },
     }
   }
   
