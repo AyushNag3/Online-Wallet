@@ -3,11 +3,13 @@ import { RecoilRoot } from "recoil";
 import { SessionProvider } from "next-auth/react";
 
 export const Providers = ({children}: {children: React.ReactNode}) => {
-    return <RecoilRoot>
+    return ( <>
         <SessionProvider> 
            {children}     
         </SessionProvider>
-    </RecoilRoot>
+        </>
+    )
+    
 }
  // To be able to use useSession first you'll need to expose the session context, 
  // SessionProvider at the top level of your application
