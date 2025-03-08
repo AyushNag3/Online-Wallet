@@ -1,8 +1,8 @@
 import db from "@repo/db/client"
-const prisma = db
+
 
 async function main() {
-  const alice = await prisma.user.upsert({
+  const alice = await db.user.upsert({
     where: { number: '9999999999' },
     update: {},
     create: {
@@ -20,7 +20,7 @@ async function main() {
       },
     },
   })
-  const bob = await prisma.user.upsert({
+  const bob = await db.user.upsert({
     where: { number: '9999999998' },
     update: {},
     create: {
@@ -42,10 +42,10 @@ async function main() {
 }
 main()
   .then(async () => {
-    await prisma.$disconnect()
+    await db.$disconnect()
   })
   .catch(async (e) => {
     console.error(e)
-    await prisma.$disconnect()
+    await db.$disconnect()
     process.exit(1)
   })
