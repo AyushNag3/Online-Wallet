@@ -2,7 +2,8 @@ import db from "@repo/db/client"
 
 
 async function main() {
-  const alice = await db.user.upsert({
+    // Dummy user entry with balance
+  const alice = await db.user.upsert({ // insert/create or update
     where: { number: '9999999999' },
     update: {},
     create: {
