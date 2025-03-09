@@ -1,4 +1,6 @@
-import prisma from "@repo/db/client";
+// import prisma from "@repo/db/client";
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
 import { AddMoney } from "../../../components/AddMoneyCard";
 import { BalanceCard } from "../../../components/BalanceCard";
 import { OnRampTransactions } from "../../../components/OnRampTransactions";

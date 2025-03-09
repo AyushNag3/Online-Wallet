@@ -1,15 +1,21 @@
 import db from "@repo/db/client"
-
+import bcrypt from "bcrypt"
 
 async function main() {
     // Dummy user entry with balance
   const alice = await db.user.upsert({ // insert/create or update
-    where: { number: '9999999999' },
+    where: { number: '1111111111' },
     update: {},
     create: {
-      number: '9999999999',
-      password: 'alice',
+      number: '1111111111',
+      password: await bcrypt.hash('alice',10) ,
       name: 'alice',
+      Balance : {
+       create : {
+        amount : 20000,
+        locked : 0
+       }
+      },
       OnRampTransaction: {
         create: {
           startTime: new Date(),
@@ -26,8 +32,14 @@ async function main() {
     update: {},
     create: {
       number: '9999999998',
-      password: 'bob',
+      password: await bcrypt.hash('bob',10) ,
       name: 'bob',
+      Balance : {
+        create : {
+          amount : 2020 ,
+          locked : 0
+        }
+      },
       OnRampTransaction: {
         create: {
           startTime: new Date(),
