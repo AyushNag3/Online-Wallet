@@ -9,7 +9,7 @@ export function Card({
   children?: React.ReactNode;
 }): JSX.Element {
   return (
-    <div className="border rounded-md p-4 bg-white">
+    <div className="border rounded-lg p-4 bg-white">
       <h1 className="text-xl border-b pb-2">
         {title}
       </h1>
