@@ -1,6 +1,5 @@
 import  express  from "express";
 import db from "@repo/db/index";
-
 const app = express() 
 app.post('/', async(req,res) => {
    const paymentInformation = {
