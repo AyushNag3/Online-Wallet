@@ -14,7 +14,7 @@ export async function createOnRampTransaction(amount : string, provider : string
     const token = (Math.random()*1000).toString()
     await prisma.onRampTransaction.create({
         data : {
-            provider,
+            provider : provider,
             status : "Processing",
             startTime : new Date(),
             token : token ,

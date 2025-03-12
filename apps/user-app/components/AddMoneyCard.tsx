@@ -17,19 +17,20 @@ const SUPPORTED_BANKS = [{
 }];
 
 export const AddMoney = () => {
-    const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl);
+    const [redirectUrl, setRedirectUrl] = useState(SUPPORTED_BANKS[0]?.redirectUrl); // ?. If the bank is found with that name, setRedirectUrl updates with url with the url of the bank that is found.
     const [amount, setamount] = useState("") ;
     const [provider, setprovider] = useState(SUPPORTED_BANKS[0]?.name || "")
     return <Card title="Add Money">
     <div className="w-full">
-        <TextInput label={"Amount"} placeholder={"Amount"} onChange={(value) => {
-           setamount(value)
+        <TextInput label={"Amount"} placeholder={"Amount"} onChange={(val) => {
+           setamount(val)
         }} />
         <div className="py-4 text-left">
             Bank
         </div>
         <Select onSelect={(value) => {
             setRedirectUrl(SUPPORTED_BANKS.find(x => x.name === value)?.redirectUrl || "")
+            setprovider(SUPPORTED_BANKS.find(x=> x.name === value)?.name || "")
         }} options={SUPPORTED_BANKS.map(x => ({
             key: x.name,
             value: x.name
