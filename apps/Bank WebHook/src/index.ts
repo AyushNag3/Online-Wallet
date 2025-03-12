@@ -52,4 +52,7 @@ app.post("/hdfcWebhook", async (req, res) => {
 
 })
 
-app.listen(3003);
+app.listen(3003, function(err){
+    if (err) console.log("Error in server setup")
+    console.log("Server listening on Port", 3003);
+})
