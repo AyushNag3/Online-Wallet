@@ -18,7 +18,7 @@ app.post("/hdfcWebhook", async (req, res) => {
     };
 
     try {
-        await db.$transaction([
+        await db.$transaction([    // db/$transaction is written, such that it makes sure that both the balance.updateMany and onRampTransaction.updateMany takes place or none
             db.balance.updateMany({
                 where: {
                     userId: Number(paymentInformation.userId)
