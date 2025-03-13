@@ -13,7 +13,7 @@ app.post("/hdfcWebhook", async (req, res) => {
         amount: string
     } = {
         token: req.body.token,
-        userId: req.body.user_identifier,
+        userId: req.body.user_id,
         amount: req.body.amount
     };
 
