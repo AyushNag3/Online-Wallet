@@ -4,6 +4,11 @@ import { getServerSession } from "next-auth"
 import { AuthOptions } from "next-auth"
 import { authOptions } from "../auth"
 
+export async function clientserversession() {
+    const session = await getServerSession(authOptions)
+    return session 
+}
+
 export async function createOnRampTransaction(amount : string, provider : string) {
     const session = await getServerSession(authOptions);
     if (!session?.user || !session.user?.id) {
