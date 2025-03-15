@@ -9,6 +9,7 @@ import { getBalance } from "../transfer/page";
 
 async function getp2p() {
      const session = await clientserversession() ;
+     
      const userId = Number(session.user.id); // Get the user ID from the session
    //@ts-ignore
 const transfers = await prisma.p2ptransfer.findMany({
@@ -19,6 +20,7 @@ const transfers = await prisma.p2ptransfer.findMany({
         ]
     }
 })
+
   return transfers.map((t: { timestamp: Date; amount: number; fromUserId: number; toUserId: number; },index: any) => ({
     key : index,
     time: t.timestamp,
