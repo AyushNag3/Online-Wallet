@@ -30,8 +30,8 @@ const transfers = await prisma.p2ptransfer.findMany({
 
 }
 export default async function() {
-    const transfer = await getp2p() ;
-    const balance = await getBalance() ;
+    const transfer = await getp2p() ;  // transfer is an obj too
+    const balance = await getBalance() ; // object is returned named balance
 
  return <div className="w-screen">
      <div className="text-4xl text-[#6a51a6] pt-8 mb-16 font-bold">
@@ -46,9 +46,7 @@ export default async function() {
           <div className="pt-4">
           <P2pcard transfers = {transfer}></P2pcard>
              </div>
-    
     </div>
-
  
  </div>
  </div>
