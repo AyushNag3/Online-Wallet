@@ -1,4 +1,5 @@
 import { Button } from "./button";
+import { HiDocumentCurrencyRupee } from "react-icons/hi2";
 
 interface AppbarProps {
     user?: {
@@ -15,8 +16,8 @@ export const Appbar = ({
     onSignout
 }: AppbarProps) => {
     return <div className="flex justify-between border-b border-slate-400 px-4">
-        <div className="text-lg flex flex-col justify-center">
-            PayTM
+        <div className="text-5xl flex flex-col justify-center pl-6">
+            <HiDocumentCurrencyRupee/>
         </div>
         <div className="flex flex-col justify-center pt-2">
             <Button onClick={user ? onSignout : onSignin}>{user ? "Logout" : "Login"}</Button>
