@@ -4,72 +4,64 @@ import { clientserversession } from "../app/lib/actions/createOnrampTransaction"
 import React from "react"
 
 
-
-export const P2pcard = async(  {transfers}  : {transfers : {
-    time : Date,
-    amount : number,
-    fromUserId : number,
-    toUserId : number
-}[]
-}) => {
-    const session = await clientserversession() ;
-
-    if (!transfers.length) {
-        return <div className="">
-          <div className="">
-          <Card title="Recent Transfers">  
+export const P2pcard = async ({ transfers }: { 
+    transfers?: { 
+      time: string | Date; // Handle both string and Date types
+      amount: number;
+      fromUserId: number; // Corrected type
+      toUserId: number;
+    }[] 
+  }) => {
+    const session = await clientserversession();
+  
+    if (!transfers || transfers.length === 0) { // Added check for undefined
+      return (
+        <div className="">
+          <Card title="Recent Transfers">
             <div className="text-center pb-8 pt-8">
-                No Recent transactions
+              No Recent transactions
             </div>
-           </Card>
-          </div>
-
-        </div> 
-  }
-
-  return <Card title="Recent Transaction">
-       <div className="pt-2">
-        {
-            transfers.map((t,index) =>  {
-                let content;
-                if (t.fromUserId === session.user.id) {
-                    content = <>
-                     <div>
-                    <div className="text-sm">
-                        Sent INR
-                    </div>
-                    <div className="text-slate-600 text-xs">
-                        {t.time.toDateString()}
-                    </div>
-                </div>
-                <div className="flex flex-col justify-center">
-                    - Rs {t.amount}
-                </div>
+          </Card>
+        </div>
+      );
+    }
+  
+    return (
+      <Card title="Recent Transaction">
+        <div className="">
+          {transfers.map((t, index) => {
+            let content;
+            const formattedTime = new Date(t.time).toDateString(); // Ensure proper date formatting
+  
+            if (t.fromUserId === Number(session.user.id)) {
+                content = (
+                    <>
+                        <div>
+                            <div className="text-sm">Sent INR</div>
+                            <div className="text-slate-600 text-xs">{formattedTime}</div>
+                        </div>
+                        <div className="flex flex-col justify-center">- Rs {t.amount}</div>
                     </>
-                } else if (t.toUserId === session.user.id) {
-                    content = <>
-                     <div>
-                    <div className="text-sm">
-                        Received INR
-                    </div>
-                    <div className="text-slate-600 text-xs">
-                        {t.time.toDateString()}
-                    </div>
-                </div>
-                <div className="flex flex-col justify-center">
-                    + Rs {t.amount}
-                </div>
-                    </>
-                }
-                return (
-                    <div key={index} className="border-b py-2 flex justify-between">
-                        {content}
-                    </div>
                 );
-            }
+            } else  {
+                content = (
+                    <>
+                        <div>
+                            <div className="text-sm">Received INR</div>
+                            <div className="text-slate-600 text-xs">{formattedTime}</div>
+                        </div>
+                        <div className="flex flex-col justify-center">+ Rs {t.amount}</div>
+                    </>
+                );
+            } 
 
-            )
-        }
-       </div>
-  </Card>
-}
+            return (
+              <div key={index} className=" flex justify-between">
+                {content}
+              </div>
+            );
+          })}
+        </div>
+      </Card>
+    );
+  };
