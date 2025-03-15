@@ -4,7 +4,14 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env" : [
+        "DATABASE_URL",
+        "JWT_SECRET",
+        "NEXTAUTH_URL",
+        "Github_Client_ID",
+        "Github_Client_Secret"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
