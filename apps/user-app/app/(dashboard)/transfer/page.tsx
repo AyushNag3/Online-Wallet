@@ -7,6 +7,13 @@ import { OnRampTransactions } from "../../../components/OnRampTransactions";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../lib/auth";
 
+interface Transaction {
+    status: "Success" | "Failure" | "Processing"; 
+    provider: string;
+    amount: number;
+    startTime: Date;
+  }
+
 export async function getBalance() {
     const session = await getServerSession(authOptions);
     const balance = await prisma.balance.findFirst({
@@ -27,7 +34,7 @@ async function getOnRampTransactions() {
             userId: Number(session?.user?.id)
         }
     });
-    return txns.map((t,index) => ({
+    return txns.map((t : Transaction,index : number) => ({
         key : index,
         time: t.startTime,
         amount: t.amount,
