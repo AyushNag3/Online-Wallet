@@ -11,9 +11,10 @@ export function SendCard() {
     const [amount, setAmount] = useState("");
 
     return <div className="h-[90vh] ">
-        <Center>
+         <div className="">
+         <div className="">
             <Card title="Send">
-                <div className="min-w-72 pt-2">
+                <div className=" pt-2">
                     <TextInput placeholder={"Number"} label="Number" onChange={(value) => {
                         setNumber(value)
                     }} />
@@ -27,6 +28,7 @@ export function SendCard() {
                     </div>
                 </div>
             </Card>
-        </Center>
+       </div>
+      </div>
     </div>
 }
